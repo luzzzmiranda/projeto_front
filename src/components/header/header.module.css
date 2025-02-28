@@ -1,7 +1,42 @@
 .submenu {
     display: none;
+    position: absolute;
+    background-color: whitesmoke;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 20px;
+    border-radius: 15px;
 }
 
 .liheader:hover > .submenu{
     display: block;
+}
+
+.container{
+    display: flex;
+    background-color: whitesmoke;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+}
+
+.container li{
+    list-style-type: none;
+}
+
+.container li *{
+    text-decoration: none;
+    color: black;
+}
+
+.ulheader{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding: 25px;
+
+}
+
+@media screen and (max-width: 554px) {
+  .submenu{
+    font-size: 12px;
+  }
 }

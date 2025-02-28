@@ -6,7 +6,7 @@ import Image from "next/image"
 
 export default function Header() {
     return (
-        <div>
+        <div className={styles.container}>
             <ul className={styles.ulheader}>
                 <li className={styles.liheader}>
                     <Link href="/">Home</Link>

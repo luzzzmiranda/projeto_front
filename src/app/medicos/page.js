@@ -6,51 +6,43 @@ const url = "https://api-clinica-2a.onrender.com"
 
 export default function medicos() {
     const [dadosmedicos, setDadosMedicos] = useState([])
-    const [dadosmedicospornome, setDadosMedicosPorNome] = useState([])
 
-    async function apresentarTodosMedicos() {
-        try {
-            const resposta = await fetch(`${url}/medicos`)
-            if (!resposta.ok) {
-                throw new Error('Erro ao buscar dados' + resposta.statusText)
-            }
-            const valores = await resposta.json()
-            setDadosMedicos(valores)
-        } catch (error) {
-            console.log('Ocorreu algum erro:' + error)
-        }
-    }
 
     async function apresentarNomeMedicos(nome) {
         try {
-            const resposta = await fetch(`${url}/medicos?nome=${nome}`)
-            if (!resposta.ok) {
-                throw new Error('Erro ao buscar dados' + resposta.statusText)
+            if (nome == '') {
+                const resposta = await fetch(`${url}/medicos`)
+                if (!resposta.ok) {
+                    throw new Error('Erro ao buscar dados' + resposta.statusText)
+                }
+                const valores = await resposta.json()
+                setDadosMedicos(valores)
+            } else {
+                const resposta = await fetch(`${url}/medicos?nome=${nome}`)
+                if (!resposta.ok) {
+                    throw new Error('Erro ao buscar dados' + resposta.statusText)
+                }
+                const valores = await resposta.json()
+                setDadosMedicos(valores)
             }
-            const valores = await resposta.json()
-            setDadosMedicosPorNome(valores)
         } catch (error) {
             console.log('Ocorreu algum erro:' + error)
         }
     }
 
-    useEffect(()=>{
-        apresentarTodosMedicos()
+    useEffect(() => {
         apresentarNomeMedicos("")
-    },[])
+    }, [])
 
     return (
-        <div>
+        <div className="container">
             {/* {dadosmedicos.map((medico) => (<p>{medico.nome}</p>))} */}
-            <div>
-                <input type="text" onChange={(e)=> apresentarNomeMedicos(e.target.value)}/>
-                <p>{dadosmedicospornome.map((medicos)=>(
-                    medicos.nome
-                ))}</p>
+            <div className="pesquisa">
+                <input type="text" onChange={(e) => apresentarNomeMedicos(e.target.value)} placeholder="Pesquisar médico"/>
             </div>
-            <table>
-                <thead>
-                    <tr>
+            <table className="tabela">
+                <thead className="cabecalho">
+                    <tr className="linha">
                         <th>id</th>
                         <th>nome</th>
                         <th>telefone</th>
@@ -58,9 +50,9 @@ export default function medicos() {
                         <th>especialidade</th>
                     </tr>
                 </thead>
-                <tbody>
-                    {dadosmedicos.map((medico)=>(
-                        <tr key={medico.id}>
+                <tbody className="corpo">
+                    {dadosmedicos.map((medico) => (
+                        <tr key={medico.id} className="linha_corpo">
                             <td>{medico.id}</td>
                             <td>{medico.nome}</td>
                             <td>{medico.telefone}</td>
